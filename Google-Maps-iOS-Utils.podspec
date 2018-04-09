@@ -13,27 +13,11 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'Apache 2.0', :file => 'LICENSE' }
   s.authors      = "Google Inc."
   s.platform     = :ios, '7.0'
-  s.source       = { :git => "https://github.com/rws08/google-maps-ios-utils",
-                     :tag => "v#{s.version.to_s}" }
+  s.source       = { :git => "https://github.com/rws08/google-maps-ios-utils.git",
+                     :tag => s.version.to_s }
   s.requires_arc = true
+  s.static_framework = true
   s.dependency 'GoogleMaps'
-  s.compiler_flags = '-fno-modules'
-
-  s.subspec 'QuadTree' do |sp|
-    sp.source_files = 'src/QuadTree/**/*.{h,m}'
-  end
-
-  s.subspec 'Clustering' do |sp|
-    sp.source_files = 'src/Clustering/**/*.{h,m}'
-    sp.dependency 'Google-Maps-iOS-Utils/QuadTree'
-  end
-
-  s.subspec 'Geometry' do |sp|
-    sp.source_files = 'src/Geometry/**/*.{h,m}'
-  end
-
-  s.subspec 'Heatmap' do |sp|
-    sp.source_files = 'src/Heatmap/**/*.{h,m}'
-    sp.dependency 'Google-Maps-iOS-Utils/QuadTree'
-  end
+  
+  s.source_files = 'src/**/*.{h,m}'
 end
