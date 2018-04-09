@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "Google-Maps-iOS-Utils-moolban"
-  s.version      = "2.1.0.5"
+  s.version      = "2.1.0.6"
   s.summary      = "A utilities library for use with Google Maps SDK for iOS."
   s.description  = <<-DESC
                    This library contains classes that are useful for a wide range of applications
@@ -19,5 +19,23 @@ Pod::Spec.new do |s|
   s.static_framework = true
   s.dependency 'GoogleMaps'
   
-  s.source_files = 'src/**/*.{h,m}'
+  s.compiler_flags = '-fno-modules'
+
+  s.subspec 'QuadTree' do |sp|
+    sp.source_files = 'src/QuadTree/**/*.{h,m}'
+  end
+
+  s.subspec 'Clustering' do |sp|
+    sp.source_files = 'src/Clustering/**/*.{h,m}'
+    sp.dependency 'Google-Maps-iOS-Utils-moolban/QuadTree'
+  end
+
+  s.subspec 'Geometry' do |sp|
+    sp.source_files = 'src/Geometry/**/*.{h,m}'
+  end
+
+  s.subspec 'Heatmap' do |sp|
+    sp.source_files = 'src/Heatmap/**/*.{h,m}'
+    sp.dependency 'Google-Maps-iOS-Utils-moolban/QuadTree'
+  end
 end
