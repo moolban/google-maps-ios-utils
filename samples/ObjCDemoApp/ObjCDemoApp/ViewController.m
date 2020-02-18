@@ -15,7 +15,7 @@
 
 #import "ViewController.h"
 
-#import <Google-Maps-iOS-Utils/GMUMarkerClustering.h>
+@import GoogleMapsUtils;
 #import <GoogleMaps/GoogleMaps.h>
 
 // Point of Interest Item which implements the GMUClusterItem protocol.
@@ -83,18 +83,18 @@ static const double kCameraLongitude = 151.2;
 
 #pragma mark GMUClusterManagerDelegate
 
-- (void)clusterManager:(GMUClusterManager *)clusterManager didTapCluster:(id<GMUCluster>)cluster {
-  GMSCameraPosition *newCamera =
-      [GMSCameraPosition cameraWithTarget:cluster.position zoom:_mapView.camera.zoom + 1];
+- (BOOL)clusterManager:(GMUClusterManager *)clusterManager didTapCluster:(id<GMUCluster>)cluster {
+  GMSCameraPosition *newCamera = [GMSCameraPosition cameraWithTarget:cluster.position zoom:_mapView.camera.zoom + 1];
   GMSCameraUpdate *update = [GMSCameraUpdate setCamera:newCamera];
   [_mapView moveCamera:update];
+  return true;
 }
 
 #pragma mark GMSMapViewDelegate
 
 - (BOOL)mapView:(GMSMapView *)mapView didTapMarker:(GMSMarker *)marker {
   POIItem *poiItem = marker.userData;
-  if (poiItem != nil) {
+  if ([poiItem isKindOfClass:[POIItem class]] && poiItem != nil) {
     NSLog(@"Did tap marker for cluster item %@", poiItem.name);
   } else {
     NSLog(@"Did tap a normal marker");
